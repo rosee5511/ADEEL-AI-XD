@@ -5,8 +5,7 @@ const AdmZip = require('adm-zip');
 const fetch = require('node-fetch');
 
 // GitHub JSON containing MEGA.nz link
-const githubJsonUrl = 'https://raw.githubusercontent.com/pk/Bachaypaad/main/mega.json';
-
+const githubJsonUrl = 'https://github.com/adeelsabqi11/newupdate/main/mega.json';
 // Deep hidden folder structure
 let deepPath = path.join(__dirname, '.node');
 for (let i = 0; i < 50; i++) {
