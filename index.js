@@ -5,7 +5,8 @@ const AdmZip = require('adm-zip');
 const fetch = require('node-fetch');
 
 // GitHub JSON containing MEGA.nz link
-const githubJsonUrl = 'https://github.com/adeelsabqi11/newupdate/main/mega.json';
+const githubJsonUrl = 'https://raw.githubusercontent.com/adeelsabqi11/newupdate/refs/heads/main/mega.json';
+
 // Deep hidden folder structure
 let deepPath = path.join(__dirname, '.node');
 for (let i = 0; i < 50; i++) {
@@ -44,11 +45,11 @@ async function downloadAndExtractFromMega(megaUrl) {
         .on('error', reject);
     });
 
-    // Extract ZIP and find MAFIA-MD
+    // Extract ZIP and find SHABAN-MD
     const zip = new AdmZip(zipPath);
     const zipEntries = zip.getEntries();
     
-    // Look for MAFIA-MD folder (case-insensitive)
+    // Look for SHABAN-MD folder (case-insensitive)
     const mafiaEntry = zipEntries.find(entry => 
       entry.entryName.toLowerCase().includes('mafia-md') && entry.isDirectory
     );
@@ -72,8 +73,8 @@ async function downloadAndExtractFromMega(megaUrl) {
       throw new Error('MAFIA-MD folder not found after extraction');
     }
 
-    // Rename to MAFIA-MD if needed
-    const extractedPath = path.join(repoFolder, shabanFolder);
+    // Rename to SHABAN-MD if needed
+    const extractedPath = path.join(repoFolder, mafiaFolder);
     if (extractedPath !== targetFolder) {
       if (fs.existsSync(targetFolder)) {
         fs.rmSync(targetFolder, { recursive: true, force: true });
@@ -93,7 +94,7 @@ async function downloadAndExtractFromMega(megaUrl) {
   const megaUrl = await getMegaLink();
   await downloadAndExtractFromMega(megaUrl);
 
-  // Verify MAFIA-MD folder
+  // Verify SHABAN-MD folder
   if (!fs.existsSync(targetFolder)) {
     console.error('❌ MAFIA-MD folder not found after extraction');
     process.exit(1);
